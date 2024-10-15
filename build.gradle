@@ -1,0 +1,43 @@
+
+
+plugins {
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+group = 'dev.luan.fritzbox'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'org.jsoup:jsoup:1.17.2'
+
+    implementation 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    options.fork = true
+    options.encoding = 'UTF-8'
+    options.release.set(17)
+}
+
+tasks.register('sourcesJar', Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set('sources')
+}
+tasks.register('javadocJar', Jar) {
+    from javadoc.destinationDir
+    archiveClassifier.set('javadoc')
+}
+
+artifacts {
+    archives shadowJar
+    archives sourcesJar
+    archives javadocJar
+}
