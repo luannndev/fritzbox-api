@@ -18,26 +18,3 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
-
-compileJava {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-    options.fork = true
-    options.encoding = 'UTF-8'
-    options.release.set(17)
-}
-
-tasks.register('sourcesJar', Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier.set('sources')
-}
-tasks.register('javadocJar', Jar) {
-    from javadoc.destinationDir
-    archiveClassifier.set('javadoc')
-}
-
-artifacts {
-    archives shadowJar
-    archives sourcesJar
-    archives javadocJar
-}
